@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -27,18 +25,7 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true,
 });
-// Password hashing middleware
-userSchema.pre("save", async function(next) {
-    try {
-        if (!this.isModified('password')) {
-            return next();
-        }
-        this.password = await bcrypt.hash(this.password, 10);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
+
 
 function validatePassword(password) {
     return (
