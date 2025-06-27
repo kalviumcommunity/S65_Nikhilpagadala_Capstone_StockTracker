@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const stockSchema = new mongoose.Schema({
     stockSymbol: {
         type: String,
         required:true
     },
-    Number: {
+    number: {
         type: Number,
         required: true
     },
@@ -17,6 +17,6 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true,
 });
-const Stock = mongoose.model('Stock', userSchema);
+const Stock = mongoose.model('Stock', stockSchema);
 
 export default Stock;
