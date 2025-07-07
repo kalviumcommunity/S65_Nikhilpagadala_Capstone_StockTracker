@@ -34,3 +34,26 @@ export const addingStock = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
+
+export const gettingStocks = async (req, res) => {
+    try {
+        const stocks = await Stock.find();
+
+        // If no stocks are found, return an empty array (not an error)
+        if (!stocks || stocks.length === 0) {
+            console.log('No stocks found in the portfolio.');
+            return res.status(200).json({ message: 'No stocks in the portfolio yet.', stocks: [] });
+        }
+
+        // Return the list of stocks
+        res.status(200).json({ message: 'Stocks retrieved successfully.', stocks });
+
+    } catch (error) {
+        console.error('Error while retrieving stocks:', error.message);
+
+        // Send error response to client
+        res.status(500).json({ error: 'Something went wrong while fetching the stocks. Please try again later.' });
+    }
+};
