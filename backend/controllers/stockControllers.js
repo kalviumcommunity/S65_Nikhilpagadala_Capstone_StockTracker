@@ -57,3 +57,42 @@ export const gettingStocks = async (req, res) => {
         res.status(500).json({ error: 'Something went wrong while fetching the stocks. Please try again later.' });
     }
 };
+
+export const updateStock = async (req, res) => {
+    try {
+        const { stockSymbol } = req.params;
+        const { Number } = req.body;
+
+        if (!Number) {
+            console.log("Missing number of stocks to update.");
+            return res.status(400).json({ error: "Please provide the new number of stocks purchased." });
+        }
+
+        const updatedStock = await Stock.findOneAndUpdate(
+            { stockSymbol },
+            { Number },
+            { new: true }
+        );
+        console.log(`${stockSymbol}' updated successfully.`);
+        res.status(200).json({ message: "Stock updated successfully.", updatedStock });
+
+    } catch (error) {
+        console.error("Error updating stock:", error.message);
+        res.status(500).json({ error: "Something went wrong while updating the stock. Please try again later." });
+    }
+};
+
+export const deleteStock = async (req, res) => {
+    try {
+        const { stockSymbol } = req.params;
+
+        const deletedStock = await Stock.findOneAndDelete({ stockSymbol });
+
+        console.log(`Stock '${stockSymbol}' deleted successfully.`);
+        res.status(200).json({ message: "Stock deleted successfully." });
+
+    } catch (error) {
+        console.error("Error deleting stock:", error.message);
+        res.status(500).json({ error: "Something went wrong while deleting the stock. Please try again later." });
+    }
+};
