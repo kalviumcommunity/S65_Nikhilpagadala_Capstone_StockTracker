@@ -7,7 +7,7 @@ import {
   deleteStock,
   updateStock,
 } from '../controllers/stockControllers.js';
-import verifyToken from '../middlewares/verifyToken.js'; // middleware to verify JWT
+
 
 const router = express.Router();
 
@@ -16,9 +16,9 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 // Protected Routes - require valid JWT
-router.post('/addStock', verifyToken, addingStock);
-router.get('/getStocks', verifyToken, gettingStocks);
-router.put('/updateStock/:symbol', verifyToken, updateStock);
-router.delete('/deleteStock/:symbol', verifyToken, deleteStock);
+router.post('/addStock',  addingStock);
+router.get('/getStocks',  gettingStocks);
+router.put('/updateStock/:symbol', updateStock);
+router.delete('/deleteStock/:symbol',  deleteStock);
 
 export default router;
