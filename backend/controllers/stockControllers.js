@@ -2,12 +2,13 @@ import Stock from '../Models/stockModel.js';
 
 export const addingStock = async (req, res) => {
     try {
-        const { stockSymbol,Number } = req.body;
+        const { stockSymbol,number,userId } = req.body;
 
         // Check for missing fields
-        if (!Number) {
+        if (!number) {
             console.log("Number of stocks purchased required")
             return res.status(400).json({error: '"Please provide the Number of stocks purchased."'})
+
         }
 
 
@@ -19,7 +20,7 @@ export const addingStock = async (req, res) => {
         }
 
         // Create and save the Stock
-        const  newStock = new Stock({ stockSymbol,Number });
+        const  newStock = new Stock({ stockSymbol,number,userId });
         await newStock.save();
 
 

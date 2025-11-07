@@ -14,6 +14,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api', router);
+app.get('/', (req, res) => {
+  res.send('Hello from the backend!');
+});
 
 
 const startServer = async () => {
