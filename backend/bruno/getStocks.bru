@@ -1,0 +1,15 @@
+meta {
+  name: getStocks
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:5000/api/get
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
