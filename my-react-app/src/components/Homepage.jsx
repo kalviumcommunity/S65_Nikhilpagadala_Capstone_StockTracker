@@ -139,9 +139,33 @@ const StockPortfolio = () => {
     }
   };
 
- 
+  const updateQuantity = async (symbol, newQuantity) => {
+    if (newQuantity < 0) return;
 
-  
+    try {
+      const response = await axios.put(`http://localhost:5000/api/updateStock/${symbol}`, {
+        Number: newQuantity,
+      });
+
+      setSuccess(response.data.message || `${symbol} quantity updated!`);
+      fetchPortfolio();
+      setTimeout(() => setSuccess(""), 2000);
+    } catch (error) {
+      setError(
+        error.response?.data?.message || error.response?.data?.error || "Failed to update quantity"
+      );
+    }
+  };
+
+  const deleteStock = async (symbol) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/stocks/${symbol}`);
+      fetchPortfolio();
+      setError("");
+    } catch {
+      setError("Failed to delete stock from portfolio");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
